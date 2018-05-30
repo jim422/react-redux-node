@@ -26,13 +26,13 @@ ReactDOM.render(
             <div>
               <AuthRoute></AuthRoute>
 
-              <switch>
+              <Switch>
                 <Route path='/bossinfo' component={BossInfo}></Route>
                 <Route path='/geniusinfo' component={GeniusInfo}></Route>
                 <Route path='/login' component={Login}></Route>
                 <Route path='/register' component={Register}></Route>
                 <Route component={Dashboard}></Route>
-              </switch>
+              </Switch>
             </div>
         </BrowserRouter>
     </Provider>),
