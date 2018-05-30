@@ -39,17 +39,16 @@ class Dashboard extends React.Component{
 			text: '消息',
 			icon: 'msg',
 			title: '消息列表',
-			component: boss
+			component: User
 		},{
-			path: '/me',
+			path: '/user',
 			text: '我',
 			icon: 'user',
 			title: '个人中心',
-			component: boss
+			component: User
 		}];
 		const pathname = this.props.location.pathname
 
-		console.log(navList)
 		return (
 			<div>
 				<NavBar mode='dard' className='fixed-header'>{ navList.find(v => v.path === pathname).title }</NavBar>
