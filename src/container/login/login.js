@@ -4,18 +4,17 @@ import { List, InputItem, WingBlank, WhiteSpace, Button } from 'antd-mobile';
 import { connect } from 'react-redux'
 import { login } from '../../redux/user.redux.js';
 import { Redirect } from 'react-router-dom'
+
+import CommonForm from '../../component/common-form/common-form'
+
 @connect(
 	state => state.user,
 	{ login }
 )
-
+@CommonForm
 class Login extends Component{
 	constructor(props){
 		super(props);
-		this.state = {
-			user: '',
-			pwd: ''
-		};
 
 		this.register = this.register.bind(this);
 		this.handleLogin = this.handleLogin.bind(this)
@@ -25,14 +24,8 @@ class Login extends Component{
 		this.props.history.push('./register')
 	}
 
-	handleChange(key, value) {
-		this.setState({
-			[key]: value
-		})
-	}
-
 	handleLogin() {
-		this.props.login(this.state)
+		this.props.login(this.props.state)
 	}
 
 	render() {
@@ -45,13 +38,13 @@ class Login extends Component{
 					{ this.props.msg ? <p className='error-msg'>{ this.props.msg }</p> : <p></p> }
 					<List>
 						<InputItem
-							onChange={v => this.handleChange('user', v)}
+							onChange={v => this.props.handleChange('user', v)}
 						>用户名</InputItem>
 
 						<WhiteSpace></WhiteSpace>
 
 						<InputItem
-							onChange={v => this.handleChange('pwd', v)}
+							onChange={v => this.props.handleChange('pwd', v)}
 						>密码</InputItem>
 					</List>
 					<Button type="primary" onClick={this.handleLogin}>登陆</Button>
