@@ -8,14 +8,22 @@ import NavLink from '../navlink/navlink'
 import Boss from '../boss/boss'
 import Genius from '../genius/genius'
 import User from '../user/user'
-
+import Msg from '../msg/msg'
+import { getMsgList, recvMsg } from '../../redux/chat.redux'
 @connect(
-	state => state
+	state => state,
+	{ getMsgList, recvMsg }
 )
 
 class Dashboard extends React.Component{
 	constructor() {
 		super()
+	}
+	componentDidMount() {
+		if (!this.props.chat.chatmsg.length) {
+			this.props.getMsgList()
+			this.props.recvMsg()
+		}
 	}
 
 	render() {
@@ -26,20 +34,20 @@ class Dashboard extends React.Component{
 			icon: 'boss',
 			title: '牛人列表',
 			component: Boss,
-			hide: user.type === 'boss'
+			hide: user.type === 'genius'
 		},{
 			path: '/genius',
 			text: 'boss',
 			icon: 'genius',
 			title: 'Boss列表',
 			component: Genius,
-			hide: user.type === 'genius'
+			hide: user.type === 'boss'
 		},{
 			path: '/msg',
 			text: '消息',
 			icon: 'msg',
 			title: '消息列表',
-			component: User
+			component: Msg
 		},{
 			path: '/user',
 			text: '我',
@@ -73,12 +81,6 @@ class Dashboard extends React.Component{
 
 		)
 	}
-}
-
-function boss() {
-	return (
-		<div>sfa</div>
-	)
 }
 
 export default  Dashboard

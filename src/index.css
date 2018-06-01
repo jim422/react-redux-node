@@ -20,12 +20,20 @@
 }
 
 #chat-page .chat-me .am-list-extra{
-    flex-bais: auto;
+    flex-basis: auto;
 }
 
-#chat-page .chat-me .am-list-extra{
+#chat-page .chat-me .am-list-content{
     padding-right: 15px;
     text-align: right
+}
+
+#chat-page .am-grid-icon{
+    display: none;
+}
+
+#chat-page .am-grid-text{
+    margin-top: 0;
 }
 
 .stick-footer{

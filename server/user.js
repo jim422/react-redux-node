@@ -96,13 +96,22 @@ Router.post('/update', function (req, res) {
 })
 
 Router.get('/getmsglist', function (req, res) {
-	const user = req.cookies.user
+	const userId = req.cookies.userid
 	//{'$or': [{from: user, to: user}]}
-	Chat.find({}, function (err, doc) {
-		if (!err) {
-			return res.json({code: 0, msgs: doc})
-		}
+
+	User.find({}, function (e, userDoc) {
+		let users = {}
+		userDoc.forEach(v => {
+			users[v._id] = {name: v.user, avatar: v.avatar}
+		})
+
+		Chat.find({'$or': [{from: userId}, {to: userId}]}, function (err, doc) {
+			if (!err) {
+				return res.json({code: 0, msgs: doc, users: users})
+			}
+		})
 	})
+
 })
 
 function md5Pwd(pwd) {
