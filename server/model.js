@@ -29,7 +29,7 @@ const models = {
 		'to': {type: String, required: true},
 		'read': {type: Boolean, default: false},
 		'content': {type: String, required: true, default: ' '},
-		'create_time': {type: Number, default:new Date().getTime()}
+		'create_time': {type: Number, default: new Date().getTime()}
 	}
 };
 
