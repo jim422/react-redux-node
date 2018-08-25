@@ -2,7 +2,8 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser');
 const model = require('./model.js');
-const Chat = model.getModel('chat')
+const Chat = model.getModel('chat');
+const path = require('path')
 
 const app = express();
 const server = require('http').Server(app);
@@ -13,17 +14,16 @@ app.use(cookieParser());
 const userRouter = require('./user.js');
 app.use('/user', userRouter);
 
-//新增数据
-// User.create({
-// 	user: 'asics',
-// 	age: 14
-// }, function (err, doc) {
-// 	if(err) {
-// 		console.log(err)
-// 	} else {
-// 		console.log(doc)
-// 	}
-// })
+console.log(path.resolve('build'));
+app.use(function (req, res, next) {
+	if (req.url.startsWith('/user/') || req.url.startsWith('/static/')) {
+		return next()
+	} else {
+		return res.sendFile(path.resolve('build/index.html'))
+	}
+});
+app.use('/', express.static(path.resolve('build')));
+
 io.on('connection', function (socket) {
 	socket.on('sendmsg', function (data) {
 		const { from, to, msg} = data.from
