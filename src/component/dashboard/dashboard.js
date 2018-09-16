@@ -1,6 +1,6 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import { Switch, Route } from 'react-router-dom'
+import { Switch, Route, Redirect } from 'react-router-dom'
 
 import { NavBar } from 'antd-mobile'
 import NavLink from '../navlink/navlink'
@@ -56,29 +56,38 @@ class Dashboard extends React.Component{
 			component: User
 		}];
 		const pathname = this.props.location.pathname
-
+		console.log(pathname)
 		return (
 			<div>
-				<NavBar mode='dard' className='fixed-header'>{ navList.find(v => v.path === pathname).title }</NavBar>
-				<div style={{ marginTop: 45 }}>
-					<Switch>
-						{
-							navList.map(v => {
-								return(
-								<Route
-									key={v.path}
-									path={v.path}
-									component={v.component}
-								/>
-							)})
-						}
-					</Switch>
-				</div>
-				<NavLink
-					data={navList}
-				/>
-			</div>
+			{
+                pathname !== '/'
+                    ? (<div>
+                        <NavBar mode='dard' className='fixed-header'>{navList.find(v => v.path === pathname).title}</NavBar>
+                        <div style={{marginTop: 45}}>
+                            <Switch>
+                                {
+                                    navList.map(v => {
+                                        return (
+                                            <Route
+                                                key={v.path}
+                                                path={v.path}
+                                                component={v.component}
+                                            />
+                                        )
+                                    })
+                                }
+                            </Switch>
+                        </div>
+                        <NavLink
+                            data={navList}
+                        />
+                    </div>)
+                    : <Redirect
+                        to={'/login'}
+                    />
 
+			}
+            </div>
 		)
 	}
 }
